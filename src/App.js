@@ -38,6 +38,9 @@ function App() {
             <a href="https://www.linkedin.com/in/adamkaguilera" target="_blank" rel="noopener noreferrer">
               <img src="/images/linkedin.png" alt="linkedin" className="icon" />
             </a>
+            <a href="https://docs.google.com/document/d/1Y1Ii8vxVhZ7NGS7a5_tuyk75FwqJJiijHPICfByY558/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
+              <img src="/images/resume.png" alt="resume" className="icon" />
+            </a>
           </div>
         </div>
         <img src="/images/adam.JPG" alt="Adam" className="header-image" />
