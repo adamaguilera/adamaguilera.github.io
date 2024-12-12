@@ -1,6 +1,6 @@
 # Adam Aguilera Webpage
 
-This project was created using [React]https://github.com/facebook/create-react-app).
+This project was created using [React](https://github.com/facebook/create-react-app).
 
 ## Development
 
