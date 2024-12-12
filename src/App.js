@@ -32,7 +32,7 @@ function App() {
             <a href="https://github.com/adamaguilera" target="_blank" rel="noopener noreferrer">
               <img src="/images/github.svg" alt="github" className="icon" />
             </a>
-            <a href="mailto:adamkaguilera@gmail.com">
+            <a href="mailto:contact@adamaguilera.com">
               <img src="/images/gmail.svg" alt="email" className="icon" />
             </a>
             <a href="https://www.linkedin.com/in/adamkaguilera" target="_blank" rel="noopener noreferrer">
