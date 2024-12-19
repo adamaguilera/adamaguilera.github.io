@@ -1,3 +1,3 @@
-export const aboutMe = "I'm a software engineer based out of New York City. " +
-"I work at Lyft as a backend developer for the Lyft Business product. " +
-"With my three years of tenure I've worked on fraud prevention, payment architecture and building platform services. ";
+export const aboutMe = "Hey reader! I'm a software engineer based out of NYC. " +
+"I currently work at Lyft as a backend developer for the Lyft Business product. " +
+"I have three years of tenure working on Lyft Business' payment architecture, fraud prevention and platform services. ";
