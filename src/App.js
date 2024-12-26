@@ -11,7 +11,7 @@ function App() {
       <header className="App-header">
         <div className="header-text">
           <h1>Adam Aguilera</h1>
-          <p>welcome to my personal webpage</p>
+          <p>Software engineer based in New York City</p>
           <div className="icon-row">
             <a href="https://github.com/adamaguilera" target="_blank" rel="noopener noreferrer">
               <img src="/images/github.svg" alt="github" className="icon" />
