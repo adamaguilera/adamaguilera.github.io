@@ -1,20 +1,28 @@
-# Adam Aguilera Webpage
+# Adam Aguilera Personal Website
 
-This project was created using [React](https://github.com/facebook/create-react-app).
+This is a static personal website built with pure HTML, CSS, and JavaScript. It is designed to be deployed on GitHub Pages and requires no build step or dependencies.
 
-## Development
+## Local Preview
 
-Below is some information for developing this webpage.
+To view the website locally:
 
-### Setup `npm install`
+1. Open the `public/index.html` file directly in your web browser.
+   - Or, for best results (especially with images), run a simple local server:
 
-Downloads required dependencies.
+   ```sh
+   cd public
+   python3 -m http.server 8000
+   ```
 
-### Local development `npm start`
+2. Visit [http://localhost:8000](http://localhost:8000) in your browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Deploying to GitHub Pages
 
-### Production deployment `npm run deploy`
+1. Move all files from the `public` directory to the root of your `gh-pages` branch (or set GitHub Pages to serve from `/public`).
+2. Push to GitHub.
+3. In your repository settings, set GitHub Pages to serve from the correct branch/folder.
 
-Builds the app for production to the `build` folder. Then executes `gh-pages -d build` to submit the compiled build to the `gh-pages` remote branch which hosts the static webpage.
+## Features
+- No frameworks or dependencies
+- Responsive, clean design
+- Easy to maintain and update 
