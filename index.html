@@ -5,37 +5,245 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adam Aguilera</title>
-  <link rel="icon" href="images/logo.png">
-  <link rel="shortcut icon" href="images/logo.png">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=6">
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Handle section expansion
+      document.querySelectorAll('.section[data-expandable="true"]').forEach(section => {
+        // Set initial state based on data-expanded attribute
+        if (section.getAttribute('data-expanded') === 'true') {
+          section.classList.add('expanded');
+        }
+
+        section.addEventListener('click', function (e) {
+          e.stopPropagation(); // Prevent category toggle when clicking section
+          this.classList.toggle('expanded');
+        });
+      });
+
+      // Handle category expansion
+      document.querySelectorAll('.category[data-expandable="true"]').forEach(category => {
+        const header = category.querySelector('.category-header');
+        header.addEventListener('click', function () {
+          category.classList.toggle('collapsed');
+        });
+      });
+    });
+  </script>
 </head>
 
 <body>
-  <div class="App">
-    <div class="image-row">
-      <img src="images/adam.JPG" alt="Adam" class="header-image" />
+  <div class="left-side">
+    <img src="images/adam.JPG" alt="Adam Aguilera" class="profile-image">
+    <div class="summary-box">
+      <p>Hi I'm Adam Aguilera, a software engineer based out of NYC currently working at Lyft. Right now I'm working on
+        ad technology focused on serving ads to riders on the Lyft app</p>
     </div>
-    <header class="App-header">
-      <div class="header-text">
-        <h1>Adam Aguilera</h1>
-        <p></p>
-        <div class="icon-row">
-          <a href="https://github.com/adamaguilera" target="_blank" rel="noopener noreferrer">
-            <img src="images/github.svg" alt="github" class="icon" />
-          </a>
-          <a href="mailto:contact@adamaguilera.com">
-            <img src="images/gmail.svg" alt="email" class="icon" />
-          </a>
-          <a href="https://www.linkedin.com/in/adamkaguilera" target="_blank" rel="noopener noreferrer">
-            <img src="images/linkedin.png" alt="linkedin" class="icon" />
-          </a>
-          <a href="https://docs.google.com/document/d/1j6yLAD73e8DCR5aBB9niRDTrV1Uv2u0QXsY9aXQKxgM/edit?usp=sharing"
-            target="_blank" rel="noopener noreferrer">
-            <img src="images/resume.png" alt="resume" class="icon" />
-          </a>
+    <div class="external-links" data-expandable="true" data-expanded="true">
+      <a href="https://github.com/adamaguilera" target="_blank" title="GitHub Profile">
+        <img src="images/github.svg" alt="GitHub">
+      </a>
+      <a href="https://linkedin.com/in/adamkaguilera" target="_blank" title="LinkedIn Profile">
+        <img src="images/linkedin.png" alt="LinkedIn">
+      </a>
+      <a href="mailto:contact@adamaguilera.com" title="Email Me">
+        <img src="images/gmail.svg" alt="Gmail">
+      </a>
+      <a href="images/resume-public.pdf" target="_blank" title="View Resume">
+        <img src="images/resume.png" alt="Resume">
+      </a>
+    </div>
+  </div>
+
+  <div class="right-side">
+    <div class="category" data-expandable="true">
+      <div class="category-header">
+        <h1 class="category-title">Experience</h1>
+        <div class="category-toggle"></div>
+      </div>
+      <div class="section" data-expandable="true" data-expanded="true">
+        <div class="header-row">
+          <h2>Software Engineer I & II at Lyft</h2>
+          <div class="date-range">Jan 2022 - Present</div>
+        </div>
+        <div class="description">
+          <span class="team">Lyft Media and Business Platforms</span>
+          <span class="location">New York City, NY</span>
+        </div>
+        <div class="content">
+          <div class="text-content">
+            <ul>
+              <li>Project lead for integrating programmatic advertising via Microsoft Monetize. Designed architecture to
+                support a direct integration via OpenRTB with an ad mediation layer between direct sold inventory and
+                other demand partners. Projected to bring $42M in ad revenue by 2027 through PMP deals and open exchange
+                advertising.</li>
+              <li>Project lead for supporting credit card pre-authorization of Lyft Business rides. Drove buy-in and
+                alignment across engineering, product and leadership. Designed a scalable solution which has processed
+                over 1.5M rides. Achieved a 50% debt rate reduction equivalent to $3M in annual post marketing margin.
+              </li>
+              <li>1st Place Winner in 2025 Lyft Hackathon. Conceptualized and implemented a prototype for a "Round
+                Trips"
+                feature within the Lyft App. Recognized for highest level of completion, polish and immediate
+                implementability
+                with minimal additional development</li>
+              <li>
+                Led full stack architectural overhaul which significantly reduced latency for degraded endpoints that
+                impacted
+                major customers. Replicated multiple sources of truth from DynamoDB to Elasticsearch to improve
+                filtering
+                and
+                querying operations. Observed a 90% reduction in P99 latency across multiple endpoints (5s → 300ms)
+              </li>
+              <li>
+                Created an automatic fraud deactivation pipeline using an ETL DAG job that detects high fraud signals
+                like
+                chargeback rate, failed charges and spend velocity. Autonomously deactivated >12K fraudulent
+                organizations
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="toggle-arrow"></div>
+      </div>
+
+      <div class="section">
+        <div class="header-row">
+          <h2>Software Engineer Intern at Lyft</h2>
+          <div class="date-range">May 2021 - Aug 2021</div>
+        </div>
+        <div class="description">
+          <span class="team">Lyft Business Commerce</span>
+          <span class="location">San Francisco, CA</span>
+        </div>
+        <div class="content">
+          <div class="text-content">
+            <ul>
+              <li>Built an application that has processed >$10M in transaction volume that streamlined the workflow for
+                support agents by automating credit card charges for monthly invoices</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </header>
+
+      <div class="section">
+        <div class="header-row">
+          <h2>Software Engineer Intern at Capital One</h2>
+          <div class="date-range">Jun 2020 - Apr 2021</div>
+        </div>
+        <div class="description">
+          <span class="team">Capital One Automotive</span>
+          <span class="location">Plano, TX</span>
+        </div>
+        <div class="content">
+          <div class="text-content">
+            <ul>
+              <li>Deployed automated workflow to translate thousands of english condition-action statements into a rule
+                engine</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category" data-expandable="true">
+      <div class="category-header">
+        <h1 class="category-title">Projects</h1>
+        <div class="category-toggle"></div>
+      </div>
+
+      <div class="section" data-expandable="false">
+        <div class="header-row">
+          <h2>Life Log Mobile App</h2>
+          <div class="date-range">Jan 2025</div>
+        </div>
+        <div class="description">
+          <span class="team">Brilliant Labs AR Glasses</span>
+        </div>
+        <div class="content">
+          <div class="text-content">
+            <ul>
+              <li>Built a Flutter-based mobile app that uses Gemini to analyze photos taken with AR glasses to track
+                time spent on activities. App features dashboards, user-editable prompts for enhanced recognition and
+                activity timelines</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" data-expandable="false">
+        <div class="header-row">
+          <h2>On-Demand Game Server</h2>
+          <div class="date-range">Sep 2024</div>
+        </div>
+        <div class="description">
+          <span class="team">AWS Game Server</span>
+        </div>
+        <div class="content">
+          <div class="text-content">
+            <ul>
+              <li>Built a server on EC2 with an IPv6 network mesh and automatic shutdown based on network packet outs to
+                avoid static fees. Used Lambda and Javascript to create a Discord bot for accessible server enablement
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" data-expandable="false">
+        <div class="header-row">
+          <h2>Ludum Dare Hackathon 55</h2>
+          <div class="date-range">Apr 2024</div>
+        </div>
+        <div class="description">
+          <span class="team">Game Jam</span>
+        </div>
+        <div class="content">
+          <div class="text-content">
+            <ul>
+              <li>Placed in the top 10% of entries in the innovation category. Used PhaserJS to build a top-down dungeon
+                crawler. Built a data model and used Tensorflow to detect spell casting from drawings instead of
+                keyboard
+                input
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category" data-expandable="true">
+      <div class="category-header">
+        <h1 class="category-title">Skills</h1>
+        <div class="category-toggle"></div>
+      </div>
+
+      <div class="section" data-expandable="false">
+        <div class="header-row">
+          <h2>Languages</h2>
+        </div>
+        <div class="content">
+          <div class="text-content">
+            <ul>
+              <li>Python, Go, JavaScript, TypeScript, Java, HTML, CSS</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" data-expandable="false">
+        <div class="header-row">
+          <h2>Tools</h2>
+        </div>
+        <div class="content">
+          <div class="text-content">
+            <ul>
+              <li>AWS, Git, React, Docker, Kubernetes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </body>
 
