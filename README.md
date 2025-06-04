@@ -1,6 +1,6 @@
 # Adam Aguilera Personal Website
 
-A simple personal website built with HTML, CSS, and JavaScript, hosted on GitHub Pages.
+A simple personal website built with HTML and CSS hosted on GitHub Pages.
 
 ## Quick Start
 
@@ -21,4 +21,4 @@ A simple personal website built with HTML, CSS, and JavaScript, hosted on GitHub
   - https://adamaguilera.com
   - https://adamaguilera.github.io
 - Monitor deployment status in GitHub Actions
-- Custom domain configured via CNAME and DNS settings
+- Custom domain configured via CNAME
