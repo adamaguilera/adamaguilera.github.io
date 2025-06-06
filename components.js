@@ -5,7 +5,7 @@ function loadCommonComponents() {
 
     const leftSide = `
         <div class="left-side">
-            <img src="${pathPrefix}images/adam.JPG" alt="Adam Aguilera" class="profile-image">
+            <img src="/images/adam.JPG" alt="Adam Aguilera" class="profile-image">
             <div class="summary-box">
                 <p>Hi I'm Adam Aguilera, a software engineer based out of NYC. I'm a passionate engineer with 3+ years of
                     experience contributing to and leading initiatives in the tech industry. I have a history of driving
@@ -15,16 +15,16 @@ function loadCommonComponents() {
             </div>
             <div class="external-links">
                 <a href="https://github.com/adamaguilera" target="_blank" title="GitHub Profile">
-                    <img src="${pathPrefix}images/github.svg" alt="GitHub">
+                    <img src="/images/github.svg" alt="GitHub">
                 </a>
                 <a href="https://linkedin.com/in/adamkaguilera" target="_blank" title="LinkedIn Profile">
-                    <img src="${pathPrefix}images/linkedin.png" alt="LinkedIn">
+                    <img src="/images/linkedin.png" alt="LinkedIn">
                 </a>
                 <a href="mailto:contact@adamaguilera.com" title="Email Me">
-                    <img src="${pathPrefix}images/gmail.svg" alt="Gmail">
+                    <img src="/images/gmail.svg" alt="Gmail">
                 </a>
-                <a href="${pathPrefix}images/resume-public.pdf" target="_blank" title="View Resume">
-                    <img src="${pathPrefix}images/resume.png" alt="Resume">
+                <a href="/images/resume-public.pdf" target="_blank" title="View Resume">
+                    <img src="/images/resume.png" alt="Resume">
                 </a>
             </div>
         </div>
@@ -32,8 +32,8 @@ function loadCommonComponents() {
 
     const nav = `
         <nav class="tab-navigation">
-            <a href="${pathPrefix}index.html" class="tab-button">Resume</a>
-            <a href="${pathPrefix}blog.html" class="tab-button">Blog</a>
+            <a href="/" class="tab-button">Resume</a>
+            <a href="/blog/" class="tab-button">Blog</a>
         </nav>
     `;
 
@@ -50,13 +50,13 @@ function loadCommonComponents() {
     }
 
     // Set active tab based on current page
-    const currentPage = window.location.pathname.split('/').pop();
+    const currentPage = window.location.pathname;
     const tabButtons = document.querySelectorAll('.tab-button');
     tabButtons.forEach(button => {
-        const buttonHref = button.getAttribute('href').split('/').pop();
+        const buttonHref = button.getAttribute('href');
         if (buttonHref === currentPage ||
-            (currentPage === '' && buttonHref === 'index.html') ||
-            (currentPage.includes('blog/') && buttonHref === 'blog.html')) {
+            (currentPage === '/' && buttonHref === '/') ||
+            (currentPage.startsWith('/blog/') && buttonHref === '/blog/')) {
             button.classList.add('active');
         }
     });

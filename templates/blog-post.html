@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} | Adam Aguilera</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/blogstyle.css">
+    <script src="/components.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle tab switching
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    if (this.getAttribute('data-tab') === 'resume') {
+                        window.location.href = '/';
+                    }
+                });
+            });
+
+            // Add a click handler to the back link
+            document.querySelector('.back-link').addEventListener('click', function (e) {
+                e.preventDefault();
+                window.location.href = this.href;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="left-side-container"></div>
+    <div class="right-side">
+        <div class="nav-container"></div>
+        <div class="tab-content">
+            <div class="blog-post">
+                <div class="content">
+                    <!-- Content will be inserted here during generation -->
+                </div>
+                <div class="back-button-container">
+                    <a href="/blog/" class="back-link">
+                        <span class="back-arrow">←</span>
+                        <span class="back-text">Back to Blog</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

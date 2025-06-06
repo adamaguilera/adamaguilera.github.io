@@ -16,6 +16,21 @@
           category.classList.toggle('collapsed');
         });
       });
+
+      // Handle section clicks for sections with URLs
+      document.querySelectorAll('.section[data-url]').forEach(section => {
+        section.style.cursor = 'pointer';
+        // Add view-here element to header-right
+        const headerRight = section.querySelector('.header-right');
+        const viewHere = document.createElement('span');
+        viewHere.className = 'view-here';
+        viewHere.textContent = 'View Here';
+        headerRight.appendChild(viewHere);
+
+        section.addEventListener('click', function () {
+          window.open(this.getAttribute('data-url'), '_blank');
+        });
+      });
     });
   </script>
 </head>
@@ -150,10 +165,12 @@
           </div>
         </div>
 
-        <div class="section" data-expandable="false">
+        <div class="section" data-expandable="false" data-url="/blog/on-demand-server.html">
           <div class="header-row">
             <h2>On-Demand Game Server</h2>
-            <div class="date-range">Sep 2024</div>
+            <div class="header-right">
+              <div class="date-range">Sep 2024</div>
+            </div>
           </div>
           <div class="description">
             <span class="team">AWS Game Server</span>
@@ -171,10 +188,13 @@
           </div>
         </div>
 
-        <div class="section" data-expandable="false">
+        <div class="section" data-expandable="false"
+          data-url="https://ldjam.com/events/ludum-dare/55/spring-summoner-is-finished-play-now">
           <div class="header-row">
             <h2>Ludum Dare Hackathon 55</h2>
-            <div class="date-range">Apr 2024</div>
+            <div class="header-right">
+              <div class="date-range">Apr 2024</div>
+            </div>
           </div>
           <div class="description">
             <span class="team">Game Jam</span>

@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Building a Cost-Effective, High-Availability Game Server on AWS</title>
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../blogstyle.css">
-    <script src="../components.js"></script>
+    <title>Building a Cost-Effective, High-Availability Game Server on AWS (and Why Common Solutions Fall Short) | Adam Aguilera</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/blogstyle.css">
+    <script src="/components.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Handle tab switching
             document.querySelectorAll('.tab-button').forEach(button => {
                 button.addEventListener('click', function () {
                     if (this.getAttribute('data-tab') === 'resume') {
-                        window.location.href = '../index.html';
+                        window.location.href = '/';
                     }
                 });
             });
@@ -22,8 +22,6 @@
             // Add a click handler to the back link
             document.querySelector('.back-link').addEventListener('click', function (e) {
                 e.preventDefault();
-                // Store the blog tab selection in sessionStorage
-                sessionStorage.setItem('selectedTab', 'blog');
                 window.location.href = this.href;
             });
         });
@@ -32,161 +30,86 @@
 
 <body>
     <div class="left-side-container"></div>
-
     <div class="right-side">
         <div class="nav-container"></div>
+        <div class="tab-content">
+            <div class="blog-post">
+                <div class="content">
+                    <h1>Building a Cost-Effective, High-Availability Game Server on AWS (and Why Common Solutions Fall Short)</h1>
+<p><em>September 15, 2024</em></p>
+<p>In Minecraft, the allure of a persistent, shared world with friends is undeniable. But when it comes to hosting, striking the right balance between availability, performance, cost, and ease of management can be a surprisingly tricky endeavor.</p>
+<p>Let&#39;s dissect why common solutions often miss the mark and then dive into a more robust, cloud-native approach.</p>
+<h2>The Pitfalls of Common Minecraft Server Hosting Solutions</h2>
+<h3>1. Self-Hosting: The Lure of Free, the Reality of Frustration</h3>
+<p>The most immediate thought for many is to self-host on a personal computer or even a Raspberry Pi. The initial appeal is obvious: it&#39;s &quot;free.&quot; However, this seemingly simple approach quickly unravels when faced with the realities of long-term hosting:</p>
+<ul>
+<li><strong>Unreliable Availability:</strong> Leaving a personal computer online 24/7 is not only inefficient but also prone to interruptions. After a few weeks of daily play, interest may wane, and the host&#39;s machine will inevitably be shut down. Months later, reviving the server requires direct intervention from the original host, creating friction for spontaneous play sessions.</li>
+<li><strong>Subpar Performance:</strong> While a high-end gaming PC might offer decent performance, the friction of running a server in the background often leads to using older, less powerful laptops. This sacrifices server performance, leading to lag and a less enjoyable experience for players.</li>
+<li><strong>Geographical Latency:</strong> If the host is on the East or West Coast, friends on the opposite side of the country will experience significantly higher latency compared to a cloud host strategically placed in the Midwest.</li>
+</ul>
+<h3>2. Third-Party Hosting and Minecraft Realms: Convenience at a Premium</h3>
+<p>Dedicated Minecraft hosting providers and Minecraft Realms offer excellent availability and generally good performance. They handle the technical complexities, allowing you to focus on playing. However, their primary drawback is cost:</p>
+<ul>
+<li><strong>Fixed Monthly Fees:</strong> These services typically charge a fixed monthly fee, regardless of actual server usage. If your friends are inactive for a month, you&#39;re still paying the same amount. Ideally, cost should scale directly with usage to maximize value.</li>
+</ul>
+<h2>Designing a Smarter AWS Solution: The Cost-Effective, On-Demand Game Server</h2>
+<p>Given the limitations of the above, I sought to leverage the power and flexibility of AWS to build a game server solution that prioritizes:</p>
+<ul>
+<li><strong>Maximizing Availability:</strong> Friends can access the server whenever they want.</li>
+<li><strong>Minimizing Costs:</strong> Pay only for what you use, as much as possible.</li>
+<li><strong>Decent Server Performance:</strong> A smooth and enjoyable gameplay experience.</li>
+<li><strong>Minimal Manual Management and Maintenance:</strong> Automate as much as possible.</li>
+</ul>
+<p>My solution hinges on the ability to dynamically manage an EC2 instance, turning it on and off based on demand, and ensuring seamless access for friends.</p>
+<h3>The Core Concept: EC2 with Usage-Based Billing</h3>
+<p>At its heart, the server runs on an AWS EC2 instance. The key to cost optimization here lies in understanding how EC2 instances are billed: you are not charged for a stopped EC2 instance. This means the server is configured to shut down when not in use, drastically reducing costs compared to a continuously running instance.</p>
+<p>To achieve this, I implemented a simple yet effective mechanism:</p>
+<ul>
+<li><strong>Inactivity Detection and Shutdown:</strong> CloudWatch alarms on the EC2 instance monitor network activity. If no network packets are detected for a defined period (e.g., 30 minutes), the alarm triggers an action to stop the EC2 instance. This directly links EC2 costs to actual server usage.</li>
+</ul>
+<h3>The Challenge of Access: On-Demand Power-Up</h3>
+<p>A stopped server is, by definition, offline. The real trick is letting friends power it on themselves without needing AWS console access.</p>
+<h4>1. The Serverless &quot;On&quot; Switch: AWS Lambda</h4>
+<p>A very simple Lambda function that tells AWS to start a specific EC2 instance when triggered.</p>
+<h4>2. User-Friendly Activation: Discord Slash Commands</h4>
+<p>Getting friends to trigger this Lambda function is where Discord comes in. My friends belong to the same private discord server which solves both security and accessibility. Historically, Discord bots are hosted on a server running 24/7 to process messages, which goes against my goal of minimizing costs. Thankfully, Discord&#39;s Slash Commands changed everything.</p>
+<p>Instead of hosting a bot, a slash command (like <code>/start-minecraft</code>) can be registered directly with Discord&#39;s API. When a user types this command in a Discord channel, Discord sends a secure request to an Amazon API Gateway endpoint. This API Gateway acts as a secure front door, receiving the Discord request and passing it to the Lambda function. The Lambda then processes the command, starts the EC2 instance, and can even send a confirmation message back to Discord.</p>
+<p>This setup makes a discord &quot;bot&quot; incredibly lean with no idle server racking up charges.</p>
+<p>For a deeper dive into setting up a Discord bot with AWS Lambda and API Gateway for slash commands, this README is a great resource: <a href="https://github.com/ker0olos/aws-lambda-discord-bot">AWS Lambda Discord Bot</a>.</p>
+<h3>The IPv4 Problem and the IPv6 Solution</h3>
+<p>A crucial hurdle in hosting game servers is IP addresses. When an EC2 instance is stopped and then restarted, it receives a new public IPv4 address. This means players would constantly have to update their Minecraft client with the new server IP, which is a major usability pain point.</p>
+<ul>
+<li><p><strong>The Elastic IP (IPv4) Conundrum:</strong> AWS offers Elastic IPs (EIPs) for IPv4, which are static public IP addresses that can be associated with an EC2 instance. This seems like the perfect solution. However, there&#39;s a catch: Elastic IP addresses for IPv4 incur a static fee if they are not associated with a running EC2 instance. Due to the limited global supply of IPv4 addresses, AWS charges for unused EIPs to encourage efficient allocation. This goes against the &quot;minimize costs&quot; goal if the server is frequently stopped.</p>
+</li>
+<li><p><strong>The IPv6 Advantage: Free Static IPs:</strong> This is where IPv6 comes to the rescue! Unlike IPv4, which is nearing exhaustion, IPv6 offers an astronomically larger address space. This abundance means that AWS does not charge for Elastic IP addresses for IPv6, regardless of whether they are associated with a running instance.</p>
+</li>
+</ul>
+<p>To leverage this, both the AWS network gateway and EC2 instance can be configured to only support IPv6. Here&#39;s a simplified explanation of how it works:</p>
+<ul>
+<li><strong>VPC with IPv6 CIDR:</strong> Virtual Private Cloud (VPC) needs to have an associated IPv6 CIDR block.</li>
+<li><strong>Subnet with IPv6 CIDR:</strong> The subnet containing the EC2 instance also needs an IPv6 CIDR block.</li>
+<li><strong>EC2 Instance IPv6 Address:</strong> When the EC2 instance is launched, assign it an IPv6 address from the subnet&#39;s range. This IPv6 address remains static for the instance, even when it&#39;s stopped and started.</li>
+<li><strong>Internet Gateway for IPv6:</strong> Ensure VPC has an Internet Gateway configured to route IPv6 traffic.</li>
+<li><strong>Security Group Rules:</strong> Configure the EC2 instance&#39;s security group to allow incoming traffic on the Minecraft server&#39;s port (default 25565) over IPv6.</li>
+</ul>
+<p>By utilizing IPv6, the Minecraft server retains a constant, static IP address that friends can save in their game, eliminating the need to update it every time the server starts. This provides a seamless and reliable experience while keeping costs in check.</p>
+<h2>The Result: A Lean, Mean, Minecraft Machine</h2>
+<p>This architecture provides a powerful blend of features:</p>
+<ul>
+<li><strong>High Availability:</strong> Friends can start the server whenever they want, ensuring it&#39;s available when they&#39;re ready to play.</li>
+<li><strong>Minimal Costs:</strong> Only pay for the EC2 instance compute time when the server is actually in use, and there are no ongoing EIP charges thanks to IPv6.</li>
+<li><strong>Decent Server Performance:</strong> Choose an EC2 instance type that provides ample resources for a smooth Minecraft experience.</li>
+<li><strong>Minimal Manual Management:</strong> The Discord bot and automated shutdown handle the heavy lifting, removing any manual intervention.</li>
+</ul>
+<p>This cloud-native approach transforms Minecraft server hosting from a fixed-cost burden into an efficient, usage-based model, making it the ideal solution for casual co-op gaming with friends.</p>
 
-        <div class="blog-post">
-            <a href="../blog.html" class="back-link">← Back to Blog</a>
-            <h1>Building a Cost-Effective, High-Availability Game Server on AWS (and Why Common Solutions Fall Short)
-            </h1>
-            <div class="date">September 15, 2024</div>
-            <div class="content">
-                <p>As gamers, the allure of a persistent, shared world with friends is undeniable. But when it comes to
-                    hosting, striking the right balance between availability, performance, cost, and ease of management
-                    can be a surprisingly tricky endeavor.</p>
-
-                <p>Let's dissect why common solutions often miss the mark and then dive into a more robust, cloud-native
-                    approach.</p>
-
-                <h2>The Pitfalls of Common Minecraft Server Hosting Solutions</h2>
-
-                <h3>1. Self-Hosting: The Lure of Free, the Reality of Frustration</h3>
-                <p>The most immediate thought for many is to self-host on a personal computer or even a Raspberry Pi.
-                    The initial appeal is obvious: it's "free." However, this seemingly simple approach quickly unravels
-                    when faced with the realities of long-term hosting:</p>
-                <ul>
-                    <li><strong>Unreliable Availability:</strong> Leaving a personal computer online 24/7 is not only
-                        inefficient but also prone to interruptions. After a few weeks of daily play, interest may wane,
-                        and the host's machine will inevitably be shut down. Months later, reviving the server requires
-                        direct intervention from the original host, creating friction for spontaneous play sessions.
-                    </li>
-                    <li><strong>Subpar Performance:</strong> While a high-end gaming PC might offer decent performance,
-                        the friction of running a server in the background often leads to using older, less powerful
-                        laptops. This sacrifices server performance, leading to lag and a less enjoyable experience for
-                        players.</li>
-                    <li><strong>Geographical Latency:</strong> If the host is on the East or West Coast, friends on the
-                        opposite side of the country will experience significantly higher latency compared to a cloud
-                        host strategically placed in the Midwest.</li>
-                </ul>
-
-                <h3>2. Third-Party Hosting and Minecraft Realms: Convenience at a Premium</h3>
-                <p>Dedicated Minecraft hosting providers and Minecraft Realms offer excellent availability and generally
-                    good performance. They handle the technical complexities, allowing you to focus on playing. However,
-                    their primary drawback is cost:</p>
-                <ul>
-                    <li><strong>Fixed Monthly Fees:</strong> These services typically charge a fixed monthly fee,
-                        regardless of actual server usage. If your friends are inactive for a month, you're still paying
-                        the same amount. Ideally, cost should scale directly with usage to maximize value.</li>
-                </ul>
-
-                <h2>Designing a Smarter AWS Solution: The Cost-Effective, On-Demand Minecraft Server</h2>
-                <p>Given the limitations of the above, I sought to leverage the power and flexibility of AWS to build a
-                    Minecraft server solution that prioritizes:</p>
-                <ul>
-                    <li>Maximizing Availability: Friends can access the server whenever they want.</li>
-                    <li>Minimizing Costs: Pay only for what you use, as much as possible.</li>
-                    <li>Good Server Performance: A smooth and enjoyable gameplay experience.</li>
-                    <li>Minimal Manual Management and Maintenance: Automate as much as possible.</li>
-                </ul>
-
-                <p>Our solution hinges on the ability to dynamically manage an EC2 instance, turning it on and off based
-                    on demand, and ensuring seamless access for players.</p>
-
-                <h3>The Core Concept: EC2 with Usage-Based Billing</h3>
-                <p>At its heart, our server runs on an AWS EC2 instance. The key to cost optimization here lies in
-                    understanding how EC2 instances are billed: you are not charged for a stopped EC2 instance. This
-                    means we can configure the server to shut down when not in use, drastically reducing costs compared
-                    to a continuously running instance.</p>
-
-                <p>To achieve this, we implement a simple yet effective mechanism:</p>
-                <ul>
-                    <li><strong>Inactivity Detection and Shutdown:</strong> We configure CloudWatch alarms on the EC2
-                        instance to monitor network activity. If no network packets are detected for a defined period
-                        (e.g., 30 minutes), the alarm triggers an action to stop the EC2 instance. This directly links
-                        our costs to actual server usage.</li>
-                </ul>
-
-                <h3>The Challenge of Access: On-Demand Power-Up</h3>
-                <p>A stopped server is, by definition, offline. The real trick is letting my friends power it on
-                    themselves without needing AWS console access.</p>
-
-                <h4>1. The Serverless "On" Switch: AWS Lambda</h4>
-                <p>A very simple Lambda function that tells AWS to start my specific EC2 instance when triggered.</p>
-
-                <h4>2. User-Friendly Activation: Discord Slash Commands</h4>
-                <p>Getting my friends to trigger this Lambda function is where Discord comes in. We all belong to the
-                    same private discord server which solves both security and accessibility quite well. Historically,
-                    Discord bots needed a server running 24/7, which goes against my goal of minimizing costs.
-                    Thankfully, Discord's Slash Commands changed everything.</p>
-
-                <p>Instead of hosting a bot, we can register a slash command (like /start-minecraft) directly with
-                    Discord's API. When a friend types this command in our Discord channel, Discord sends a secure
-                    request (a webhook) to an Amazon API Gateway endpoint. This API Gateway acts as a secure front door,
-                    receiving the Discord request and passing it to my Lambda function. My Lambda then processes the
-                    command, starts the EC2 instance, and can even send a confirmation message back to Discord.</p>
-
-                <p>This setup means my "bot" is incredibly lean and only costs me for the few milliseconds it takes to
-                    process a request and start the server. There's no idle server racking up charges.</p>
-
-                <p>For a deeper dive into setting up a Discord bot with AWS Lambda and API Gateway for slash commands,
-                    this <a href="https://github.com/ker0olos/aws-lambda-discord-bot" target="_blank">readme</a> is a
-                    great resource.</p>
-
-                <h3>The IPv4 Problem and the IPv6 Solution</h3>
-                <p>This brings us to a crucial hurdle: IP addresses. When an EC2 instance is stopped and then restarted,
-                    it typically receives a new public IPv4 address. This means players would constantly have to update
-                    their Minecraft client with the new server IP, which is a major usability pain point.</p>
-
-                <h4>The Elastic IP (IPv4) Conundrum</h4>
-                <p>AWS offers Elastic IPs (EIPs) for IPv4, which are static public IP addresses that can be associated
-                    with an EC2 instance. This seems like the perfect solution. However, there's a catch: Elastic IP
-                    addresses for IPv4 incur a static fee if they are not associated with a running EC2 instance. Due to
-                    the limited global supply of IPv4 addresses, AWS charges for unused EIPs to encourage efficient
-                    allocation. This goes against our "minimize costs" goal if the server is frequently stopped.</p>
-
-                <h4>The IPv6 Advantage: Free Static IPs</h4>
-                <p>This is where IPv6 comes to the rescue! Unlike IPv4, which is nearing exhaustion, IPv6 offers an
-                    astronomically larger address space. This abundance means that AWS does not charge for Elastic IP
-                    addresses for IPv6, regardless of whether they are associated with a running instance.</p>
-
-                <p>To leverage this, we configure our AWS network gateway and EC2 instance to support IPv6. Here's a
-                    simplified explanation of how it works:</p>
-                <ul>
-                    <li><strong>VPC with IPv6 CIDR:</strong> Your Virtual Private Cloud (VPC) needs to have an
-                        associated IPv6 CIDR block.</li>
-                    <li><strong>Subnet with IPv6 CIDR:</strong> The subnet where your EC2 instance resides also needs an
-                        IPv6 CIDR block.</li>
-                    <li><strong>EC2 Instance IPv6 Address:</strong> When you launch your EC2 instance, you assign it an
-                        IPv6 address from the subnet's range. This IPv6 address remains static for the instance, even
-                        when it's stopped and started.</li>
-                    <li><strong>Internet Gateway for IPv6:</strong> Ensure your VPC has an Internet Gateway configured
-                        to route IPv6 traffic.</li>
-                    <li><strong>Security Group Rules:</strong> Configure your EC2 instance's security group to allow
-                        incoming traffic on the Minecraft server's port (default 25565) over IPv6.</li>
-                </ul>
-
-                <p>By utilizing IPv6, our Minecraft server retains a constant, static IP address that friends can save
-                    in their game, eliminating the need to update it every time the server starts. This provides a
-                    seamless and reliable experience while keeping costs in check.</p>
-
-                <h2>The Result: A Lean, Mean, Minecraft Machine</h2>
-                <p>This architecture provides a powerful blend of features:</p>
-                <ul>
-                    <li><strong>High Availability:</strong> Friends can start the server whenever they want, ensuring
-                        it's available when they're ready to play.</li>
-                    <li><strong>Minimal Costs:</strong> We only pay for the EC2 instance compute time when the server is
-                        actually in use, and there are no ongoing EIP charges thanks to IPv6.</li>
-                    <li><strong>Good Server Performance:</strong> We can choose an EC2 instance type that provides
-                        ample resources for a smooth Minecraft experience.</li>
-                    <li><strong>Minimal Manual Management:</strong> The Discord bot and automated shutdown handle the
-                        heavy lifting, freeing us from constant manual intervention.</li>
-                </ul>
-
-                <p>This cloud-native approach transforms Minecraft server hosting from a fixed-cost burden into an
-                    efficient, usage-based model, making it the ideal solution for casual co-op gaming with friends.
-                    It's a testament to how intelligent use of cloud services can solve real-world problems with
-                    elegance and efficiency.</p>
+                </div>
+                <div class="back-button-container">
+                    <a href="/blog/" class="back-link">
+                        <span class="back-arrow">←</span>
+                        <span class="back-text">Back to Blog</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
