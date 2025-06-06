@@ -5,22 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adam Aguilera</title>
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css">
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      // Handle section expansion
-      document.querySelectorAll('.section[data-expandable="true"]').forEach(section => {
-        // Set initial state based on data-expanded attribute
-        if (section.getAttribute('data-expanded') === 'true') {
-          section.classList.add('expanded');
-        }
-
-        section.addEventListener('click', function (e) {
-          e.stopPropagation(); // Prevent category toggle when clicking section
-          this.classList.toggle('expanded');
-        });
-      });
-
       // Handle category expansion
       document.querySelectorAll('.category[data-expandable="true"]').forEach(category => {
         const header = category.querySelector('.category-header');
@@ -42,7 +29,7 @@
         deeply curious about new technologies and how to apply them so I'm regularly working on a side project some of
         which you can see here!</p>
     </div>
-    <div class="external-links" data-expandable="true" data-expanded="true">
+    <div class="external-links">
       <a href="https://github.com/adamaguilera" target="_blank" title="GitHub Profile">
         <img src="images/github.svg" alt="GitHub">
       </a>
@@ -64,7 +51,7 @@
         <h1 class="category-title">Experience</h1>
         <div class="category-toggle"></div>
       </div>
-      <div class="section" data-expandable="true" data-expanded="true">
+      <div class="section">
         <div class="header-row">
           <h2>Software Engineer I & II at Lyft</h2>
           <div class="date-range">Jan 2022 - Present</div>
@@ -106,7 +93,6 @@
             </ul>
           </div>
         </div>
-        <div class="toggle-arrow"></div>
       </div>
 
       <div class="section">
