@@ -1,3 +1,31 @@
+const GOOGLE_ANALYTICS_ID = 'G-1G2QP6G0HL';
+
+function initializeGoogleAnalytics(measurementId) {
+    if (!measurementId) {
+        return;
+    }
+    // Prevent duplicate initialization
+    if (window.__gaInitialized) {
+        return;
+    }
+    window.__gaInitialized = true;
+    // Set up dataLayer and gtag proxy
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = window.gtag || gtag;
+    // Inject the GA script
+    const gaScript = document.createElement('script');
+    gaScript.async = true;
+    gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+    document.head.appendChild(gaScript);
+    // Initialize GA
+    window.gtag('js', new Date());
+    window.gtag('config', measurementId);
+}
+
+// Initialize GA as soon as this script loads
+initializeGoogleAnalytics(GOOGLE_ANALYTICS_ID);
+
 function loadCommonComponents() {
     // Determine if we're in a subdirectory
     const isInSubdirectory = window.location.pathname.split('/').length > 2;
