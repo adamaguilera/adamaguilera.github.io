@@ -61,7 +61,6 @@ function loadCommonComponents() {
     const nav = `
         <nav class="tab-navigation">
             <a href="/" class="tab-button">Resume</a>
-            <a href="/blog/" class="tab-button">Blog</a>
         </nav>
     `;
 
