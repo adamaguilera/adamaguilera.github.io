@@ -8,3 +8,6 @@ package-lock.json
 
 # IDE and editor files
 .vscode/
+
+# Images
+images/*.svg
