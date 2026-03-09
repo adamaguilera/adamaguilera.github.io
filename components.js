@@ -82,8 +82,7 @@ function loadCommonComponents() {
     tabButtons.forEach(button => {
         const buttonHref = button.getAttribute('href');
         if (buttonHref === currentPage ||
-            (currentPage === '/' && buttonHref === '/') ||
-            (currentPage.startsWith('/blog/') && buttonHref === '/blog/')) {
+            (currentPage === '/' && buttonHref === '/')) {
             button.classList.add('active');
         }
     });
