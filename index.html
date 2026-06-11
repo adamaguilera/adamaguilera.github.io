@@ -4,297 +4,401 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="Adam Aguilera - Software Engineer at Plaid with expertise in backend development, system architecture, and scalable solutions. View my experience, projects, and blog.">
-  <meta name="keywords"
-    content="Adam Aguilera, Software Engineer, Plaid, Lyft, Backend Developer, System Architecture, Technical Blog, AWS, Python, Go, JavaScript, TypeScript">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Software engineer in New York. Revenue infrastructure at Netflix.">
   <meta name="author" content="Adam Aguilera">
   <meta property="og:title" content="Adam Aguilera">
-  <meta property="og:description"
-    content="Adam Aguilera - Software Engineer at Plaid with expertise in backend development, system architecture, and scalable solutions. View my experience, projects, and technical blog.">
+  <meta property="og:description" content="Software engineer in New York. Revenue infrastructure at Netflix.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://adamaguilera.com">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0c0e">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#faf9f7">
   <title>Adam Aguilera</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="components.js"></script>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b0c0e'/%3E%3Ctext x='50%25' y='50%25' dy='.34em' text-anchor='middle' font-family='-apple-system,Helvetica,Arial,sans-serif' font-size='40' font-weight='600' fill='%23d6d9de'%3Ea%3C/text%3E%3C/svg%3E">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1G2QP6G0HL"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Handle category expansion
-      document.querySelectorAll('.category[data-expandable="true"]').forEach(category => {
-        const header = category.querySelector('.category-header');
-        header.addEventListener('click', function () {
-          category.classList.toggle('collapsed');
-        });
-      });
-
-      // Handle section clicks for sections with URLs
-      document.querySelectorAll('.section[data-url]').forEach(section => {
-        section.style.cursor = 'pointer';
-        // Add view-here element to header-right
-        const headerRight = section.querySelector('.header-right');
-        const viewHere = document.createElement('span');
-        viewHere.className = 'view-here';
-        viewHere.textContent = 'View Here';
-        headerRight.appendChild(viewHere);
-
-        section.addEventListener('click', function () {
-          window.open(this.getAttribute('data-url'), '_blank');
-        });
-      });
-    });
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-1G2QP6G0HL');
   </script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0b0c0e;
+      --fg: #d6d9de;
+      --muted: #8a8f98;
+      --border: rgb(255 255 255 / 0.12);
+      --leader: rgb(138 143 152 / 0.55);
+      --space: 1.65rem;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #faf9f7;
+        --fg: #1f2328;
+        --muted: #6b7077;
+        --border: rgb(0 0 0 / 0.14);
+        --leader: rgb(107 112 119 / 0.55);
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header,
+    main,
+    footer {
+      max-width: 40rem;
+      margin-inline: auto;
+      padding-inline: 1.25rem;
+    }
+
+    header {
+      padding-top: 7rem;
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: 50% 30%;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    footer {
+      padding-bottom: 4rem;
+    }
+
+    ::selection {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    :focus-visible {
+      outline: 2px solid;
+      outline-offset: 2px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+      text-decoration-color: rgb(128 128 128 / 0.55);
+      text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+      transition: text-decoration-color 150ms ease;
+    }
+
+    a:hover {
+      text-decoration-color: currentColor;
+    }
+
+    h1 {
+      font-size: 1.375rem;
+      font-weight: 600;
+      letter-spacing: -0.011em;
+    }
+
+    h2 {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: var(--space);
+    }
+
+    .meta {
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 0.8125rem;
+      margin-top: 0.35rem;
+    }
+
+    .meta span {
+      white-space: nowrap;
+    }
+
+    .about {
+      margin-top: calc(var(--space) * 2);
+    }
+
+    section {
+      margin-top: calc(var(--space) * 2);
+      border-top: 1px solid var(--border);
+      padding-top: var(--space);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .rows li,
+    .row {
+      display: flex;
+      align-items: baseline;
+      gap: 1ch;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-size: 0.9375rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rows li>span:first-child,
+    .row>span:first-child {
+      font-weight: 600;
+    }
+
+    .rows li+li {
+      margin-top: calc(var(--space) / 2);
+    }
+
+    .leader {
+      flex: 1;
+      min-width: 4ch;
+      align-self: center;
+      height: 1px;
+      background: radial-gradient(circle, var(--leader) 0.75px, transparent 0.8px) left center / 6px 1px repeat-x;
+    }
+
+    .what {
+      color: var(--muted);
+    }
+
+    .when {
+      color: var(--muted);
+      font-size: 0.8125rem;
+      white-space: nowrap;
+    }
+
+    .projects li+li {
+      margin-top: var(--space);
+    }
+
+    .projects .desc {
+      color: var(--muted);
+      font-size: 0.9375rem;
+      margin-top: 0.2rem;
+    }
+
+    .inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5ch;
+      font-family: var(--mono);
+      font-size: 0.9375rem;
+    }
+
+    .inline li+li::before {
+      content: "·";
+      content: "·" / "";
+      color: var(--muted);
+      margin-right: 1.5ch;
+    }
+
+    footer {
+      margin-top: calc(var(--space) * 3);
+    }
+
+    footer p {
+      border-top: 1px solid var(--border);
+      padding-top: var(--space);
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 0.8125rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    @media (max-width: 520px) {
+      header {
+        padding-top: 3.5rem;
+      }
+
+      .rows li {
+        row-gap: 0.2rem;
+      }
+
+      .rows li+li {
+        margin-top: var(--space);
+      }
+
+      .rows .what {
+        order: 3;
+        flex-basis: 100%;
+        font-size: 0.875rem;
+      }
+
+      .leader {
+        min-width: 0;
+      }
+
+      .when {
+        margin-left: auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <div class="left-side-container"></div>
-
-  <div class="right-side">
-    <div class="nav-container"></div>
-
-    <div class="tab-content">
-      <div class="category" data-expandable="true">
-        <div class="category-header">
-          <h1 class="category-title">Experience</h1>
-          <div class="category-toggle"></div>
-        </div>
-        <div class="section">
-          <div class="header-row">
-            <h2>Software Engineer @Plaid</h2>
-            <div class="date-range">Aug 2025 - Present</div>
-          </div>
-          <div class="description">
-            <span class="team">Remember Me Growth</span>
-            <span class="location">New York City, NY</span>
-          </div>
-          <div class="content">
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="header-row">
-            <h2>Software Engineer @Lyft</h2>
-            <div class="date-range">Jan 2022 - Aug 2025</div>
-          </div>
-          <div class="description">
-            <span class="team">Lyft Media and Business Platforms</span>
-            <span class="location">New York City, NY</span>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>Project lead for integrating programmatic advertising via Microsoft Monetize. Designed
-                  architecture to
-                  support a direct integration via OpenRTB with an ad mediation layer between direct sold inventory
-                  and
-                  other demand partners.
-                </li>
-                <li>Project lead for supporting credit card pre-authorization of Lyft Business rides. Drove buy-in and
-                  alignment across engineering, product and leadership. Designed a scalable solution which has
-                  processed
-                  over 1.5M rides. Achieved a 50% debt rate reduction equivalent to $3M in annual post marketing
-                  margin.
-                </li>
-                <li>1st Place Winner in 2025 Lyft Hackathon. Conceptualized and implemented a prototype for a "Round
-                  Trips"
-                  feature within the Lyft App. Recognized for highest level of completion, polish and immediate
-                  implementability
-                  with minimal additional development</li>
-                <li>
-                  Led full stack architectural overhaul which significantly reduced latency for degraded endpoints
-                  that
-                  impacted
-                  major customers. Replicated multiple sources of truth from DynamoDB to Elasticsearch to improve
-                  filtering
-                  and
-                  querying operations. Observed a 90% reduction in P99 latency across multiple endpoints (5s → 300ms)
-                </li>
-                <li>
-                  Created an automatic fraud deactivation pipeline using an ETL DAG job that detects high fraud
-                  signals
-                  like
-                  chargeback rate, failed charges and spend velocity. Autonomously deactivated >12K fraudulent
-                  organizations
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="header-row">
-            <h2>Software Engineer Intern @Lyft</h2>
-            <div class="date-range">May 2021 - Aug 2021</div>
-          </div>
-          <div class="description">
-            <span class="team">Lyft Business Commerce</span>
-            <span class="location">San Francisco, CA</span>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>Built an application that has processed >$10M in transaction volume that streamlined the workflow
-                  for
-                  support agents by automating credit card charges for monthly invoices</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="header-row">
-            <h2>Software Engineer Intern @Capital One</h2>
-            <div class="date-range">Jun 2020 - Apr 2021</div>
-          </div>
-          <div class="description">
-            <span class="team">Capital One Automotive</span>
-            <span class="location">Plano, TX</span>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>Deployed automated workflow to translate thousands of english condition-action statements into a
-                  rule
-                  engine</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="category" data-expandable="true">
-        <div class="category-header">
-          <h1 class="category-title">Projects</h1>
-          <div class="category-toggle"></div>
-        </div>
-
-        <div class="section" data-expandable="false">
-          <div class="header-row">
-            <h2>Life Log Mobile App</h2>
-            <div class="date-range">Jan 2025</div>
-          </div>
-          <div class="description">
-            <span class="team">Brilliant Labs AR Glasses</span>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>Built a Flutter-based mobile app that uses Gemini to analyze photos taken with AR glasses to track
-                  time spent on activities. App features dashboards, user-editable prompts for enhanced recognition
-                  and
-                  activity timelines</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="section" data-expandable="false" data-url="/blog/on-demand-server.html">
-          <div class="header-row">
-            <h2>On-Demand Game Server</h2>
-            <div class="header-right">
-              <div class="date-range">Sep 2024</div>
-            </div>
-          </div>
-          <div class="description">
-            <span class="team">AWS Game Server</span>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>Built a server on EC2 with an IPv6 network mesh and automatic shutdown based on network packet
-                  outs to
-                  avoid static fees. Used Lambda and Javascript to create a Discord bot for accessible server
-                  enablement
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="section" data-expandable="false"
-          data-url="https://ldjam.com/events/ludum-dare/55/spring-summoner-is-finished-play-now">
-          <div class="header-row">
-            <h2>Ludum Dare Hackathon 55</h2>
-            <div class="header-right">
-              <div class="date-range">Apr 2024</div>
-            </div>
-          </div>
-          <div class="description">
-            <span class="team">Game Jam</span>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>Placed in the top 10% of entries in the innovation category. Used PhaserJS to build a top-down
-                  dungeon
-                  crawler. Built a data model and used Tensorflow to detect spell casting from drawings instead of
-                  keyboard
-                  input
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="section" data-expandable="false" data-url="https://github.com/adamaguilera/dota2v2">
-          <div class="header-row">
-            <h2>Dota 2v2</h2>
-            <div class="header-right">
-              <div class="date-range">Jan 2022</div>
-            </div>
-          </div>
-          <div class="description">
-            <span class="team">Custom Game</span>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>
-                  Developed a custom mod for Dota 2 using Lua, which streamlined gameplay for 2v2 and 4v4 matches not
-                  natively well-supported. The project involved modifying core game logic to balance gameplay and added
-                  quality-of-life features that were later incorporated into the main game, such as a forfeit mechanic
-                  and scaling neutral camps. The mod gained over 4,000 subscribers
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="category" data-expandable="true">
-        <div class="category-header">
-          <h1 class="category-title">Skills</h1>
-          <div class="category-toggle"></div>
-        </div>
-
-        <div class="section" data-expandable="false">
-          <div class="header-row">
-            <h2>Languages</h2>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>Python, Go, JavaScript, TypeScript, Java, HTML, CSS</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="section" data-expandable="false">
-          <div class="header-row">
-            <h2>Tools</h2>
-          </div>
-          <div class="content">
-            <div class="text-content">
-              <ul>
-                <li>AWS, Git, React, Docker, Kubernetes</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+  <header>
+    <img class="avatar" src="images/adam.JPG" alt="" width="150" height="150">
+    <div>
+      <h1>Adam Aguilera</h1>
+      <p class="meta"><span>software engineer</span> · <span>new york city</span></p>
     </div>
-  </div>
+  </header>
+
+  <main>
+    <p class="about">
+      I'm a software engineer in New York, working on revenue infrastructure at Netflix. Before
+      that I built growth features at Plaid, and spent a few years on Lyft Ads and Lyft Business.
+    </p>
+
+    <section>
+      <h2>Now</h2>
+      <p>
+        Revenue infrastructure for Netflix, building tools and automations for the accounting.
+        Outside of work I'm usually prototyping, most recently a cached knowledge layer for your agents.
+      </p>
+    </section>
+
+    <section>
+      <h2>Work</h2>
+      <ul class="rows" role="list">
+        <li>
+          <span>netflix</span>
+          <span class="what">revenue infrastructure</span>
+          <span class="leader"></span>
+          <span class="when"><span aria-hidden="true">2026–now</span><span class="sr-only">2026 to
+              present</span></span>
+        </li>
+        <li>
+          <span>plaid</span>
+          <span class="what">growth</span>
+          <span class="leader"></span>
+          <span class="when">2025–26</span>
+        </li>
+        <li>
+          <span>lyft</span>
+          <span class="what">ads &amp; business rides</span>
+          <span class="leader"></span>
+          <span class="when">2022–25</span>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <ul class="projects" role="list">
+        <li>
+          <div class="row">
+            <span>pine</span>
+            <span class="leader"></span>
+            <span class="when">2025</span>
+          </div>
+          <p class="desc">
+            Chrome extension that drives the browser with an LLM agent. Built with LangGraph, it
+            navigates pages and carries out instructions on its own.
+          </p>
+        </li>
+        <li>
+          <div class="row">
+            <span>life log</span>
+            <span class="leader"></span>
+            <span class="when">2025</span>
+          </div>
+          <p class="desc">
+            Flutter app for Brilliant Labs AR glasses. Uses Gemini to turn the photos it captures
+            into a timeline of your day.
+          </p>
+        </li>
+        <li>
+          <div class="row">
+            <span>on-demand game server</span>
+            <span class="leader"></span>
+            <span class="when">2024</span>
+          </div>
+          <p class="desc">
+            Game server on EC2 that boots from a Discord command and shuts itself down when
+            traffic stops, so it costs almost nothing to keep around.
+          </p>
+        </li>
+        <li>
+          <div class="row">
+            <span>spring summoner</span>
+            <span class="leader"></span>
+            <span class="when">2024</span>
+          </div>
+          <p class="desc">
+            Top-down dungeon crawler built in PhaserJS for Ludum Dare 55. You cast spells by
+            drawing them, with TensorFlow reading the drawings. Placed in the top 10% for
+            innovation.
+          </p>
+        </li>
+        <li>
+          <div class="row">
+            <span>dota 2v2</span>
+            <span class="leader"></span>
+            <span class="when">2022</span>
+          </div>
+          <p class="desc">
+            Dota 2 mod that rebalances the game for 2v2 and 4v4. Picked up over 4,000 subscribers,
+            and some of its features later became native to the official game.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Elsewhere</h2>
+      <ul class="inline" role="list">
+        <li><a href="https://github.com/adamaguilera">github</a></li>
+        <li><a href="https://linkedin.com/in/adamkaguilera">linkedin</a></li>
+        <li hidden id="email-item"><a id="email">email</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>2026 · plain html</p>
+  </footer>
+
+  <script>
+    var emailLink = document.getElementById('email');
+    emailLink.href = 'mailto:' + 'moc.areliugamada@tcatnoc'.split('').reverse().join('');
+    document.getElementById('email-item').hidden = false;
+  </script>
 </body>
 
 </html>
